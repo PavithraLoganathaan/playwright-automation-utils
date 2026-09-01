@@ -1,8 +1,10 @@
-import { chromium, firefox, webkit, Browser, Page } from '@playwright/test';
+import { chromium, firefox, webkit, Browser, BrowserContext, Page } from '@playwright/test';
 
 export class BrowserUtils {
   private browser!: Browser;
+  private context!: BrowserContext;
   private page!: Page;
+  
 
   // Generic openBrowser method
   async openBrowser(browserType: 'chromium' | 'firefox' | 'webkit', headless: boolean = false): Promise<void> {
@@ -15,8 +17,9 @@ export class BrowserUtils {
     } else {
       throw new Error(`Unsupported browser type: ${browserType}`);
     }
-
-    this.page = await this.browser.newPage();
+     // Create context + page
+    this.context = await this.browser.newContext();
+    this.page = await this.context.newPage();
   }
 
   async openURL(url: string): Promise<void> {

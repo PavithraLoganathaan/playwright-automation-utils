@@ -11,10 +11,6 @@ export class TextUtils {
     await element.clear();
   }
 
-  async typeText(element: Locator, text: string): Promise<void> {
-    await element.type(text);
-  }
-
   async pressKey(element: Locator, key: string): Promise<void> {
     await element.press(key);
   }

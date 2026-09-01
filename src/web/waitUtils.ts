@@ -7,7 +7,7 @@ export class WaitUtils {
     this.page = page;
   }
 
-  //  Wait for element (any state)
+  //  Wait for element (by default state: attached)
   async waitForElement(element: Locator) {
     await element.waitFor();
   }
@@ -73,11 +73,6 @@ export class WaitUtils {
       // trigger action that starts download
     ]);
     console.log(await download.path());
-  }
-
-  //  Wait for navigation
-  async waitForNavigation() {
-    await this.page.waitForNavigation();
   }
 
   //  Wait for specific condition

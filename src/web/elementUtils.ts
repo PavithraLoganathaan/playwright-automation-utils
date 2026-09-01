@@ -5,7 +5,7 @@ export class ElementUtils {
     constructor(private page:Page) {}
 
     getElementByRole(role: any, name?: string): Locator {
-       return this.page.getByRole(role, { name });
+       return this.page.getByRole(role, { name : name });
     }
 
 

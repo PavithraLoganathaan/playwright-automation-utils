@@ -1,23 +1,28 @@
 import {expect, test,Locator} from '@playwright/test';
 import { BrowserUtils } from "../../src/web/browserUtils";
 import { ElementUtils } from "../../src/web/elementUtils";
-import {ActionUtils} from "../../src/web/actionUtils";
 
-test("sample test", async({page})=>{
 
-  const utils = new BrowserUtils(page);
-  await utils.openURL("https://dd-demo-tau.vercel.app/playwright-practice.html");
-  const title = await utils.getTitle();
+test("BrowserUtils launches browser and navigates", async () => {
+  const utils = new BrowserUtils();
+// Accessing the private page property for ElementUtils
+
+  // Launch browser + context + page
+  await utils.openBrowser('chromium', false);
+
+  // Navigate
+  await utils.openURL("https://automationexercise.com/");
+
+  // Verify title
+  const title = await utils.getPageTitle();
   console.log("Page Title:", title);
-  expect(title).toContain("Playwright Locator Practice Forms");  
-  const elementUtils = new ElementUtils(page);
-  const roleButton:Locator = await elementUtils.getElementByCSS("#role-btn")
-  const actionUtils = new ActionUtils(page);
-  await actionUtils.clickElement(roleButton);
+  expect(title).toContain("Automation Exercise");
+  const elementUtils = new ElementUtils(utils['page']); 
 
-  await expect(elementUtils.getElementByText("Welcome to Playwright Training!").nth(0)).toBeVisible();
+  await elementUtils.getElementByRole('button', 'Test Cases').click();
 
-  await elementUtils.getElementByPlaceholder("Enter your email").fill("email@example.com");
-  await elementUtils.getElementByCSS("#label-input").fill("testuser");
-  await page.waitForTimeout(6000);
+  // Cleanup
+  await utils.closeBrowser();
 })
+
+

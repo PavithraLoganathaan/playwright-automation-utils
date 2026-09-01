@@ -14,7 +14,7 @@ export class ScrollUtils {
 
   // ✅ Scroll up by pixels
   async scrollUp(pixels: number = 500) {
-    await this.page.evaluate(y => window.scrollBy(0, -y), pixels);
+    await this.page.evaluate(() => window.scrollBy(0, -pixels));
   }
 
   // ✅ Scroll down by pixels
